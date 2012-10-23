@@ -82,7 +82,11 @@ var Interface = function(args) {
             switch (true) {
 				// implemented function was not defined by interface
                 case _isUndefined(_functions[item]):
-                    throw new Error(item.concat(" is not a defined member of ").concat(_type).concat("."));
+					//Allow private functions in implemented objects
+                    if (item.indexOf("_") !== 0) {
+                        throw new Error(item.concat(" is not a defined member of ").concat(_type).concat("."));
+                    }
+                    break;
 				// implementation is not a function
                 case _isNotFunction(implement):
                     throw new Error(_type.concat(".").concat(item).concat(" has not been implemented as a function." ));
